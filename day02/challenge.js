@@ -34,6 +34,6 @@ console.log("Nilai Math:", mathScore);
 console.log("Nilai English", englishScore);
 console.log("Rata-rata", average);
 console.log("Grade:", grade);
-console.log("Kehadiran:", attendance, "%")
+console.log(`Kehadiran: ${attendance}%`);
 console.log("Status", status);
 console.log(bonusMessage);
