@@ -44,11 +44,11 @@ console.log("Removed:", removed);
 console.log("After pop:", colors);
 
 // unshift - tambah dari awal
-colors.unshipt("Purple");
+colors.unshift("Purple");
 console.log("After unshift:", colors);
 
 // shift - hapus dari awal
-const removedFirst = color.shift();
+const removedFirst = colors.shift();
 console.log("Removed First:", removedFirst);
 console.log("After shift:", colors);
 
@@ -66,7 +66,7 @@ console.log("Original colors:", colors);
 // ==================================
 console.log("\n=== FOREACH ===\n");
 
-const name = ["Iqo", "Budi", "Siti", "Andi"];
+const names = ["Iqo", "Budi", "Siti", "Andi"];
 
 //cara lama (for loop)
 console.log("For loop:");
@@ -122,7 +122,7 @@ console.log("\n=== FILTER ===\n");
 const scores = [45, 78, 92, 55, 88, 34, 95];
 
 // Filter nilai >= 70
-const passed = score.filter(score => score >= 70);
+const passed = scores.filter(score => score >= 70);
 console.log("All Scores:",scores);
 console.log("Passed:", passed);
 
@@ -258,7 +258,7 @@ const data = [12, 5, 8, 130, 44, 3, 15];
 const result = data
     .filter(num => num % 2 === 0)       // [12, 8, 130, 44]
     .map(num => num * 2)                // [24, 16, 260, 88]
-    reduce((sum, num) => sum + num, 0); // 388
+    .reduce((sum, num) => sum + num, 0); // 388
 
 console.log("Data:", data);
 console.log("Filter even > double > sum:", result);
