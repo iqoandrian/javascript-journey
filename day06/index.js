@@ -34,7 +34,7 @@ console.log("Age:", person["age"]);
 // when use bracket notation?
 // 1. when key is in a variable
 const key = "name";
-console .log("Dynamic access:", person[key]);
+console.log("Dynamic access:", person[key]);
 
 // 2. when key has a space or special character
 const car = {
