@@ -78,3 +78,45 @@ console.log(updateStock(products, 999, 10));
 
 // Verify the update
 console.log("Mouse after update:", findProductById(products, 2));
+
+// =============================
+// TASK 5: Generate inventory report
+// =============================
+
+const generateInventoryReport = (productsArray) => {
+    // Calculate total products (easy!)
+    const totalProducts = products.length;
+    // Calculate total value (reuse your Task 2 function!)
+    const totalValue = calculateTotalValue(productsArray);
+    // Find low stock products (filter where stock < 10)
+    const lowStockProducts = productsArray.filter(product => product.stock < 10);
+    // Count categories (use reduce - see hint above)
+    const categoriesCount = productsArray.reduce((acc, product) => {
+        const category = product.category;
+        acc[category] = (acc[category] || 0) + 1;
+        return acc;
+    }, {});
+    // Return object with all data
+    return {
+        totalProducts: totalProducts,           // totalProducts
+        totalValue: totalValue,                 // totalValue
+        lowStockProducts: lowStockProducts,     // lowStockProduct
+        categoriesCount: categoriesCount        // categoriesCount
+    };
+};
+
+// Test task 5
+console.log("\n=== TASK 5: Inventory report ===");
+const report = generateInventoryReport(products);
+console.log("\n--- Inventory report ---");
+console.log("Total products:", report.totalProducts);
+console.log("Total inventory value: Rp", report.totalValue.toLocaleString('id-ID'));
+console.log("\nLow stock products (< 10 units:");
+report.lowStockProducts.forEach(p => {
+    console.log(`- ${p.name}: ${p.stock} units`);
+});
+console.log("\nProduct by category:");
+Object.entries(report.categoriesCount).forEach(([category, count]) => {
+    console.log(`- ${category}: ${count} products`);
+});
+
