@@ -5,3 +5,4 @@
 ## Day 3: Learn Loops
 ## Day 4: Function Declaration
 ## Day 5: Array Basics
+## Day 6: Objects & Object Methods
