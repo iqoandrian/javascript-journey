@@ -95,7 +95,7 @@ const addExpense = (category, amount, description, date = getCurrentDate()) => {
 // ===========================
 
 const viewAllExpenses = () => {
-    if (viewAllExpenses.length ===0) {
+    if (expenses.length === 0) {
         console.log("No expenses yet!");
         return;
     }
@@ -108,7 +108,7 @@ const viewAllExpenses = () => {
         console.log(`${expense.id} | ${expense.date} | ${expense.category} | ${formattedAmount} | ${expense.description}`);        
     });
 
-    const total = expenses.reduce((sum, expense) => sum + expense.anount, 0);
+    const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
     console.log("-----------------------------------------------------------------");
     console.log(`Total: ${formatRupiah(total)}`);
@@ -154,6 +154,65 @@ const filterByCategory = (category) => {
     const total = filtered.reduce((sum, expense) => sum + expense.amount, 0);
     console.log("--------------------------------------------------------");
     console.log(`Total (${category}): ${formatRupiah(total)}`);
+};
+
+// ==============================
+// TASK 5: FILTER BY MONTH
+// ==============================
+const filterByMonth = (month, year) => {
+    // Step 1: Format month (pad with 0 if needed)
+    const formattedMonth = String(month).padStart(2, '0');
+
+    // Step 2: Create search string
+    const searchString = `${year}-${formattedMonth}`;
+
+    // Step 3: Filter expenses
+    const filtered = expenses.filter(expense => {
+        return expense.date.startsWith(searchString);
+    });
+
+    // Step 4: check if empty
+    if (filtered.length === 0) {
+        console.log(`No expenses in ${getMonthName(searchString + "-01")} ${year}`);
+        return;
+    }
+
+    // Step 5: Display (reuse task 2/4 logic)
+    console.log(`\n=== EXPENSES: ${getMonthName(searchString + "-01")} ${year} ===`);
+    console.log("ID | Date      | Amount    | Description");
+    console.log("--------------------------------------------------------------------");
+
+    filtered.forEach(expense => {
+        const formattedAmount = formatRupiah(expense.amount);
+        console.log(`${expense.id}  | ${expense.date}   | ${formattedAmount}    | ${expense.description}`);
+    });
+
+    // Step 6: Calculate total
+    const total = filtered.reduce((sum, expense) => sum + expense.amount, 0);
+    console.log("--------------------------------------------------------");
+    console.log(`Total (${getMonthName(searchString + "-01")}): ${formatRupiah(total)}`);
+};
+
+// ==============================
+// TASK 6: DELETE EXPENSE
+// ==============================
+const deleteExpense = (id) => {
+    // Step 1: Find index of expense with this ID
+    const index = expenses.findIndex(expense => expense.id === id);
+
+    // Step 2: Check if found
+    if (index === -1) {
+        return "Expense not found!";
+    }
+
+    // Step 3: Get expense name before deleting (for message)
+    const deletedExpense = expenses[index];
+
+    // Step 4: Remove from array using splice
+    expenses.splice(index, 1);
+
+    // Step 5: Return success message
+    return `Deleted: ${deletedExpense.description} (ID: ${id})`;
 };
 
 // ==============================
@@ -203,7 +262,7 @@ console.log("");
 console.log("=== TEST: FILTER BY CATEGORY ===");
 filterByCategory("food");
 console.log("");
-/*
+
 // TEST TASK 5: Filter by month
 console.log("=== TEST: FILTER BY MONTH ===");
 filterByMonth(1, 2025);
@@ -214,7 +273,7 @@ console.log("=== TASK: DELETE EXPENSE ===");
 console.log(deleteExpense(3));
 viewAllExpenses();
 console.log("");
-
+/*
 // TEST TASK 7: Monthly summary
 console.log("=== TASK: MONTHLY SUMMARY ===");
 getMonthlySummary();
