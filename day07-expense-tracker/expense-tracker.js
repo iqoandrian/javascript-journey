@@ -114,7 +114,47 @@ const viewAllExpenses = () => {
     console.log(`Total: ${formatRupiah(total)}`);
 };
 
+// ==============================
+// TASK 3: CALCULATE TOTAL
+// ==============================
 
+const calculateTotal = (expensesList = expenses) => {
+    return expensesList.reduce((sum, expense) => sum + expense.amount, 0);
+};
+
+// ==============================
+// TASK 4: FILTER BY CATEGORY
+// ==============================
+
+const filterByCategory = (category) => {
+    // Step 1: validate category
+    if (!categories.includes(category)) {
+        console.log("Invalid category!");
+        return;
+    }
+
+    // Step 2: filter expenses
+    const filtered = expenses.filter(expense => expense.category === category);
+
+    // Step 3: check if empty
+    if (filtered.length === 0) {
+        console.log(`No expenses in category: ${category}`);
+        return;
+    }
+    // Step 4: Display (similar to viewAllExpenses)
+    console.log(`\n=== EXPENSES: ${category.toUpperCase()} ===`);
+    console.log("ID | Date      | Amount      | Description");
+    console.log("--------------------------------------------------------");
+
+    filtered.forEach(expense => {
+        const formattedAmount = formatRupiah(expense.amount);
+        console.log(`${expense.id} | ${expense.date}    | ${formattedAmount} |  ${expense.description}`);
+    });
+    // Step 5: calculate total
+    const total = filtered.reduce((sum, expense) => sum + expense.amount, 0);
+    console.log("--------------------------------------------------------");
+    console.log(`Total (${category}): ${formatRupiah(total)}`);
+};
 
 // ==============================
 // SAMPLE DATA (For testing)
@@ -152,7 +192,7 @@ console.log("");
 console.log("=== TEST: VIEW ALL EXPENSE ===");
 viewAllExpenses();
 console.log("");
-/*
+
 // TEST TASK 3: Calculate total
 console.log("=== TEST: CALCULATE TOTAL");
 const total = calculateTotal();
@@ -161,9 +201,9 @@ console.log("");
 
 // TEST TASK 4: Filter by category
 console.log("=== TEST: FILTER BY CATEGORY ===");
-filterbyCategory("food");
+filterByCategory("food");
 console.log("");
-
+/*
 // TEST TASK 5: Filter by month
 console.log("=== TEST: FILTER BY MONTH ===");
 filterByMonth(1, 2025);
