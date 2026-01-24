@@ -20,7 +20,7 @@ const budget = {
     monthly: 5000000,
     categories: {
         food:2000000,
-        transport: 10000000,
+        transport: 1000000,
         entertainment: 500000,
         bills: 800000,
         shopping: 500000,
@@ -216,6 +216,77 @@ const deleteExpense = (id) => {
 };
 
 // ==============================
+// TASK 7: MONTHLY SUMMARY
+// ==============================
+
+const getMonthlySummary = (month, year) => {
+    // Step 1: Get expense for this month (reuse task 5 logic!)
+    const formattedMonth = String(month).padStart(2, '0');
+    const searchString = `${year}-${formattedMonth}`;
+    const monthExpenses = expenses.filter(e => e.date.startsWith(searchString));
+
+    // Step 2: check if empty
+    if (monthExpenses.length === 0) {
+        console.log(`No expenses in ${getMonthName(searchString + "-01")} ${year}`);
+        return;
+    }
+
+    // Step 3: Group by category and sum amounts
+    const categoryTotals = monthExpenses.reduce((acc, expense) => {
+        const cat = expense.category;
+        acc[cat] = (acc[cat] || 0) + expense.amount;
+        return acc;
+    }, {});
+
+    // Step 4: Display header
+    console.log(`\n=== MONTHLY SUMMARY: ${getMonthName(searchString + "-01")} ${year} ===`);
+    console.log("\nCategory Breakdown:");
+    console.log("-------------------");
+
+    //Step 5: Loop through each category and display
+    Object.entries(categoryTotals).forEach(([category, spent]) => {
+        const budgetForCategory = budget.categories[category] || 0;
+        const percentage = Math.round((spent / budgetForCategory) * 100);
+        // Format output
+        const spentFormatted = formatRupiah(spent).padEnd(15);
+        const budgetFormatted = formatRupiah(budgetForCategory).padEnd(15);
+        // Warning if over 80%
+        const warning = percentage >= 80 ? "⚠️" : "✅";
+
+        console.log(`${category}: ${spentFormatted} / ${budgetFormatted} (${percentage}%) ${warning}`);
+    });
+
+    //Step 6: Calculate overall total
+    const totalSpent = calculateTotal(monthExpenses);
+    const totalBudget = budget.monthly;
+    const overallPercentage = Math.round((totalSpent / totalBudget) * 100);
+    const remaining = totalBudget - totalSpent;
+
+    //Step 7: Display totals
+    console.log("---------------");
+    console.log(`Total spending: ${formatRupiah(totalSpent)} / ${formatRupiah(totalBudget)} (${overallPercentage}%)`);
+    console.log(`Remaining budget: ${formatRupiah(remaining)}`);
+
+    // Step 8: show warning for categories over 80%
+    console.log("\n⚠️ Warnings:");
+
+    let hasWarnings = false;
+    Object.entries(categoryTotals).forEach(([category, spent]) => {
+    const budgetForCategory = budget.categories[category] || 0;
+    const percentage = Math.round((spent / budgetForCategory) * 100);
+    
+    if (percentage >= 80) {
+        console.log(`- ${category} at ${percentage}% of budget`);
+        hasWarnings = true;
+    }
+    });
+
+    if (!hasWarnings) {
+    console.log("✅ All categories within budget!");
+    };
+};
+
+// ==============================
 // SAMPLE DATA (For testing)
 // ==============================
 
@@ -273,12 +344,12 @@ console.log("=== TASK: DELETE EXPENSE ===");
 console.log(deleteExpense(3));
 viewAllExpenses();
 console.log("");
-/*
+
 // TEST TASK 7: Monthly summary
 console.log("=== TASK: MONTHLY SUMMARY ===");
-getMonthlySummary();
+getMonthlySummary(1, 2025);
 console.log("");
-
+/*
 // TEST TASK 8: Budget alerts
 console.log("=== TEST: BUDGET ALERTS ===");
 checkBudgetAlerts();
