@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 8: DOM Basics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DOM Manipulation - Day 8</h1>
+
+        <!--Section 1: selecting elements-->
+        <section id="section1">
+            <h2>Section 1: Selecting elements</h2>
+            <p id="demo">This is paragraph.</p>
+            <p class="text">Paragraph with class.</p>
+            <p class="text">Another paragraph with class</p>
+            <button id="btn1">Click me!</button>
+        </section>
+
+        <!-- Section 2: Changing content -->
+        <section id="section2">
+            <h2>Section 2: Changing content</h2>
+            <div id="content">Original content</div>
+            <button id="btn2">Change contents</button>
+        </section>
+
+        <!-- Section 3: Changing styles -->
+        <section id="section3">
+            <h2>Section 3: Changing styles</h2>
+            <div id="box">I'm a box!</div>
+            <button id="btn3">Change color</button>
+            <button id="btn4">Toggle class</button>
+        </section>
+
+        <!-- Section 4: Creating elements -->
+        <section id="section4">
+            <h2>Section 4: Creating elements</h2>
+            <ul id="list">
+                <li>Item 1</li>
+                <li>Item 2</li>
+            </ul>
+            <button id="btn5">Add item</button>
+            <button id="btn6">Remove last item</button>
+        </section>
+
+        <!-- Section 5: Multiply elements -->
+        <section id="section5">
+            <h2>Section 5: Working with multiply elements</h2>
+            <div class="card">Card 1</div>
+            <div class="card">Card 2</div>
+            <div class="card">Card 3</div>
+            <button id="btn7">Highlight all cards</button>
+        </section>
+    </div>
+    <!-- Load javascript at the end so DOM is ready -->
+    <script src="script.js"></script>
+</body>
+</html>
