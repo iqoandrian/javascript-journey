@@ -6,3 +6,4 @@
 ## Day 4: Function Declaration
 ## Day 5: Array Basics
 ## Day 6: Objects & Object Methods
+## Day 7: Project Day( Expense tracker)
