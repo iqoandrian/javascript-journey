@@ -287,6 +287,64 @@ const getMonthlySummary = (month, year) => {
 };
 
 // ==============================
+// TASK 8: CHECK BUDGET ALERTS
+// ==============================
+
+checkBudgetAlerts = () => {
+    // Step 1: Get current month/year
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+    // Step 2: Get this month expenses
+    const formattedMonth = String(currentMonth).padStart(2, '0');
+    const searchString = `${currentYear}-${formattedMonth}`;
+    const monthExpenses = expenses.filter(e => e.date.startsWith(searchString));
+    // Step 3: if no expenses, nothing to check
+    if (monthExpenses.length === 0) {
+        console.log("No expenses this month yet!");
+        return;
+    }
+    // Step 4: Group by category(reuse logic from task 7)
+    const categoryTotals = monthExpenses.reduce((acc, expense) => {
+        const cat = expense.category;
+        acc[cat] = (acc[cat] || 0) + expense.amount;
+        return acc;
+    }, {});
+    // Step 5: Display header
+    console.log(`\n=== BUDGET ALERTS: ${getMonthName(searchString + "-01")} ${currentYear} ===`);
+    // Step 6: Check each category
+    // if spent >= 80% of budget show warning
+    let hasAlerts = false;
+
+    Object.entries(categoryTotals).forEach(([category, spent]) => {
+        const budgetForCategory = budget.categories[category] || 0;
+        const percentage = Math.round((spent / budgetForCategory) * 100);
+
+        // Show alert if >= 80%
+        if (percentage >= 80) {
+            console.log(`⚠️ ${category}: ${percentage}% of budget (${formatRupiah(spent)} / ${formatRupiah(budgetForCategory)})`);
+            hasAlerts = true;
+        }
+    });
+    
+
+    // Task 7: Check overall monthly budget
+    const totalSpent = calculateTotal(monthExpenses);
+    const totalBudget = budget.monthly;
+    const overallPercentage = Math.round((totalSpent / totalBudget) * 100);
+
+    if (overallPercentage >= 80) {
+        console.log(`⚠️ Overall: ${overallPercentage}% of monthly budget (${formatRupiah(totalSpent)} / ${formatRupiah(totalBudget)})`);
+        hasAlerts = true;
+    }
+
+    // Step 8: if no alerts, show good news
+    if (!hasAlerts) {
+        console.log("✅ All spending within safe limits!");
+    }
+};
+
+// ==============================
 // SAMPLE DATA (For testing)
 // ==============================
 
@@ -349,8 +407,7 @@ console.log("");
 console.log("=== TASK: MONTHLY SUMMARY ===");
 getMonthlySummary(1, 2025);
 console.log("");
-/*
+
 // TEST TASK 8: Budget alerts
 console.log("=== TEST: BUDGET ALERTS ===");
 checkBudgetAlerts();
-*/
