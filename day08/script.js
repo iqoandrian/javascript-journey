@@ -144,3 +144,13 @@ btn1.addEventListener('click', function() {
     demoElement.style.color = 'green';
     demoElement.style.fontSize = '20px';
 });
+
+// Challenge
+const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+box.style.backgroundColor = randomColor;
+
+list.innerHTML = '';
+itemCount = 0;
+
+const activeCards = document.querySelectorAll('.card.active');
+console.log("Active cards:", activeCards.length);
