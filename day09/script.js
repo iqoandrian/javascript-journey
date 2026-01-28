@@ -111,7 +111,7 @@ const formResult = document.getElementById('formResult');
 // Validation functions
 function validateUsername() {
     const value = username.value.trim();
-    const error = document.getElementById(usernameError);
+    const error = document.getElementById('usernameError');
 
     if (value.length === 0) {
         error.textContent = 'Username is required';
@@ -201,13 +201,19 @@ function validateAge() {
 }
 
 // Real-time validation on input
-username.addEventListener('submit', function(e) {
+username.addEventListener('input', validateUsername);
+email.addEventListener('input', validateEmail);
+password.addEventListener('input', validatePassword);
+age.addEventListener('input', validateAge);
+
+// Form submit event
+form.addEventListener('submit', function(e) {
     //IMPORTANT: pevent default from submission (prevents page reload)
     e.preventDefault();
 
     console.log("Form submitted!");
 
-    // Validation all fields
+    // Validate all fields
     const isUsernameValid = validateUsername();
     const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
@@ -216,7 +222,7 @@ username.addEventListener('submit', function(e) {
     // Check if all valid
     if (isUsernameValid && isEmailValid && isPasswordValid && isAgeValid) {
         // Form is valid - show success
-        formResult.classname = 'success';
+        formResult.className = 'success';
         formResult.textContent = `✅ Form submitted successfully! Welcome, ${username.value}!`;
 
         console.log("Form data:", {
