@@ -253,3 +253,113 @@ Select (dropdown) event: 'change'
 Radio button event: 'change'
 */
 
+const countrySelect = document.getElementById('country');
+const countryOutput = document.getElementById('countryOutput');
+
+countrySelect.addEventListener('change', function(e) {
+    const selected = e.target.value;
+
+    if (selected) {
+        countryOutput.textContent = selected;
+    } else {
+        countryOutput.textContent = 'None';
+    }
+
+    console.log("Selected country:", selected);
+});
+
+// Radio buttons
+const radioButtons = document.querySelectorAll('input[name="favorite]');
+const favoriteOutput = document.getElementById('favoriteOutput');
+
+radioButtons.forEach(function(radio) {
+    radio.addEventListener('change', function(e) {
+        favoriteOutput.textContent = e.target.value;
+        console.log("Selected favorite:", e.target.value);
+    });
+});
+
+// =================================
+// SECTION 5: CHECKBOX EVENTS
+// =================================
+/*
+Checkbox event: 'change'
+Multiple checkbox: Loop and check which are checked
+*/
+
+const checkboxes = document.querySelectorAll('.skill');
+const skillsOutput = document.getElementById('skillsOutput');
+
+function updateSkills() {
+    // get all checked checkboxes
+    const checkedSkills = [];
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            checkedSkills.push(checkbox.value);
+        }
+    });
+
+    // Update output
+    if (checkedSkills.length > 0) {
+        skillsOutput.textContent = checkedSkills.join(', ');
+    } else {
+        skillsOutput.textContent = 'None';
+    }
+
+    console.log("Selected skills:", checkedSkills);
+}
+
+// Listen to each checkbox
+checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', updateSkills);
+});
+
+// ===============================
+// SECTION 6: MOUSE EVENTS
+// ===============================
+/*
+Mouse events:
+- 'click' - Single click
+- 'dblclick' - Double click
+- 'mouseenter' - Mouse enters element
+- 'mouseleave' - Mouse leave element
+- 'mousemove' - Mouse move over element
+*/
+
+const mouseBox = document.getElementById('mouseBox');
+const mouseEvent = document.getElementById('mouseEvent');
+const clickCountSpan = document.getElementById('clickCount');
+
+let clickCount = 0;
+
+// Click event
+mouseBox.addEventListener('click', function() {
+    clickCount++;
+    clickCountSpan.textContent = clickCount;
+    mouseEvent.textContent = 'Clicked!';
+    console.log("Box clicked! Count:", clickCount);
+});
+
+// Mouse enter (hover)
+mouseBox.addEventListener('mouseenter', function() {
+    mouseEvent.textContent = 'Mouse entered'
+    console.log("Mouse entered box");
+});
+
+// Mouse leave
+mouseBox.addEventListener('mouseleave', function() {
+    mouseEvent.textContent = 'Mouse left';
+    console.log("Mouse left box");
+});
+
+// Double click
+mouseBox.addEventListener('dblclick', function() {
+    mouseEvent.textContent = 'Double clicked!';
+    mouseBox.style.background = 'linear-gradien(135deg, #f093fb 0%, #f5576c 100%)';
+    console.log("Box double clicked!");
+
+    // Reset color after 1 second
+    setTimeout(() => {
+        mouseBox.style.background = 'linear-gradient(13deg, #667eea 0%, #764ba2 100%)';
+    }, 1000);
+});
