@@ -1,0 +1,146 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Calculator container */
+.calculator {
+    background: #2d3748;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Screen */
+.calculator-screen {
+    background: #1a202c;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.previous-operand {
+    color: #718096;
+    font-size: 40px;
+    font-weight: 300;
+    min-height: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.current-operand {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 500;
+    min-height: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+/* Keys grid */
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Button styling */
+.key {
+    background: #4a5568;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 24px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.key:hover {
+    background: #5a6678;
+    transform: translateY(-2px);
+}
+
+.key:active {
+    transform: translateY(0);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Number keys */
+.key-number {
+    background: #4a5568;
+}
+
+/* Operator keys */
+.key-operator {
+    background: #f6ad55;
+}
+
+.key-operator:hover {
+    background: #ed8936;
+}
+
+/* Clear key */
+.key-clear {
+    background: #fc8181;
+    grid-column: span 2;
+}
+
+.key-clear:hover {
+    background: #f56565;
+}
+
+/* Delete key */
+.key-delete {
+    background: #f6ad55;
+}
+
+/* Zero key (spans 2 columns) */
+.key-zero {
+    grid-column: span 2;
+}
+
+/* Equals key */
+.key-equals {
+    background: #48bb78;
+    grid-column: span 2;
+}
+
+.key-equals:hover {
+    background: #38a169;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .calculator {
+        max-width: 100%;
+    }
+
+    .current-operand {
+        font-size: 32px;
+    }
+    .key {
+        font-size: 20px;
+        padding: 15px;
+    }
+}

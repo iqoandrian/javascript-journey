@@ -7,3 +7,6 @@
 ## Day 5: Array Basics
 ## Day 6: Objects & Object Methods
 ## Day 7: Project Day( Expense tracker)
+## Day 8: DOM Basics
+## Day 9: Events & Forms
+## Day 10: Calculator Projects
