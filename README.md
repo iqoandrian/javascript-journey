@@ -10,3 +10,4 @@
 ## Day 8: DOM Basics
 ## Day 9: Events & Forms
 ## Day 10: Calculator Projects
+## Day 11: Todo App Project
